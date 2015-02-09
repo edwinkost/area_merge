@@ -315,7 +315,7 @@ modflowList = [
 'totalWaterStorageThickness_monthEnd_output.nc'
 ]
 
-netcdfList = modflowList
+netcdfList = extensiveList
 
 for i in netcdfList:print i
 
