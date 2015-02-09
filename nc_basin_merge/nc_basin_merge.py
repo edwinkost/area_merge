@@ -9,6 +9,9 @@ import datetime
 import glob
 from multiprocessing import Pool
 
+# file cache to minimize/reduce opening/closing files.  
+filecache = dict()
+
 def getMax(x,a):
 	m= float(a.max())
 	if x == None:
@@ -69,10 +72,20 @@ def mergeNetCDF(inputTuple):
 	uniqueTimes= np.array([])
 
 	for ncFile in netCDFInput.values():
-		#-open netCDF file and get index
-		rootgrp= nc.Dataset(ncFile,'r',format= ncFormat)
+
+		# open netCDF file
+		if ncFile in filecache.keys():
+			rootgrp = filecache[ncFile]
+			print "Cached: ", ncFile
+		else:
+			rootgrp = nc.Dataset(ncFile)
+			filecache[ncFile] = rootgrp
+			print "New: ", ncFile
+
+		# and get index
 		index= netCDFInput.keys()[netCDFInput.values().index(ncFile)]
-		#-retrieve dimensions,  atributes, variables, and missing value
+
+		# retrieve dimensions,  atributes, variables, and missing value
 		dimensions[index]= rootgrp.dimensions.copy()
 		variables[index]=  rootgrp.variables.copy()
 		attributes[index]= rootgrp.__dict__.copy()
