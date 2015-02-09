@@ -235,9 +235,8 @@ def mergeNetCDF(inputTuple):
 ##################################
 ######## user input ##############
 ##################################
-inputDirRoot    = sys.argv[1] 
 #~ inputDirRoot = '/projects/wtrcycle/users/edwinhs/05min_runs_28_november_2014/multi_cores_natural_1960_to_2010/'  # sys.argv[1] #'/scratch/water2invest/pcrglob/HadGem_historical/'
-outputDir       = inputDirRoot+'/global/'
+#~ outputDir    = inputDirRoot+'/global/'
 #~ outputDir    = '/projects/wtrcycle/users/edwinhs/05min_runs_28_november_2014/multi_cores_natural_1960_to_2010/global/'
 #~ outputDir    = '/projects/wtrcycle/users/edwinhs/05min_runs_november_2014/test_multi_cores_natural/global/'      # inputDirRoot' # inputDirRoot
 areas           = ['M%02d'%i for i in range(1,54,1)]
@@ -248,8 +247,12 @@ latMax		    =   90 - deltaLat / 2
 lonMin          = -180 + deltaLon / 2
 lonMax          =  180 - deltaLon / 2
 
+# input and output directories:
+inputDirRoot    = sys.argv[1] 
+outputDir       = sys.argv[2]
+
 # maximum number of cores that will be used
-max_number_of_cores = int(sys.argv[2])
+max_number_of_cores = int(sys.argv[3])
 print max_number_of_cores
 
 # making outputDir
