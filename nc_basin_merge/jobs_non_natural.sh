@@ -5,5 +5,5 @@
 #SBATCH -n 24       # number of CPUs requested; required for a correct multicore multi processing
 
 cd /home/edwin/github/area_merge/nc_basin_merge
-python nc_basin_merge.py /projects/wtrcycle/users/edwinhs/05min_runs_28_november_2014/multi_cores_non_natural_1960_to_2010 /projects/wtrcycle/users/edwin/05min_runs_28_november_2014/multi_cores_non_natural_1960_to_2010 24
+python nc_basin_merge.py /projects/wtrcycle/users/edwinhs/05min_runs_28_november_2014/multi_cores_non_natural_1960_to_2010 /projects/wtrcycle/users/edwin/05min_runs_28_november_2014/multi_cores_non_natural_1960_to_2010/global 24
 
