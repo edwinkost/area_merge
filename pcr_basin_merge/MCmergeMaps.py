@@ -164,17 +164,17 @@ def joinMaps(inputTuple):
 ######## user input ##############
 ##################################
 
-MV= -999.9
+MV = 1e20
 
+# chosen date
 year = 1960
-# try to read "year" from the command line argurment (sys.argv) 
+chosenDate = datetime.date(int(year),12,31) # datetime.date(1979,12,31)
 try:
-    year = int(sys.argv[1])
+    chosenDate = str(sys.argv[1])
 except:
     pass
 
-endDate = datetime.date(int(year),12,31) # datetime.date(1979,12,31)
-
+# map coordinates and resolution 
 deltaLat= 5.0/60.0
 deltaLon= 5.0/60.0
 latMin= -90.
@@ -182,10 +182,24 @@ latMax= 90.0
 lonMin= -180.
 lonMax= 180.0
 
-inputDirRoot = '/projects/wtrcycle/users/edwinhs/05min_runs_november_2014/natural_version_november_2014/'  
-areas= ['M%02d'%i for i in range(1,54,1)]
+inputDirRoot = ''  
+try:
+    inputDirRoot = str(sys.argv[2])
+except:
+    pass
+
+number_of_clone_maps = 53
+try:
+    number_of_clone_maps = int(sys.argv[3])
+except:
+    pass
+areas= ['M%02d'%i for i in range(1,number_of_clone_maps+1,1)]
 	
-outputDir    = "/projects/wtrcycle/users/edwinhs/05min_runs_november_2014/initial_condition_based_natural_run/" 
+outputDir    = inputDirRoot+"/global/states/"
+try:
+    inputDirRoot = int(sys.argv[4])
+except:
+    pass
 
 try:
 	os.makedirs(outputDir)
@@ -204,7 +218,7 @@ os.system(command)
 setclone(tempCloneMap)
 
 inputDir= os.path.join(inputDirRoot,areas[0],'states')
-files= getFileList(inputDir, '*%s.map' % endDate)
+files= getFileList(inputDir, '*%s.map' % chosenDate)
 ncores = min(len(files), 5)
 print 'Using %d cores to process' % ncores,
 for fileName in files.keys():
