@@ -340,7 +340,6 @@ modflowListNatural = [
 ]
 
 modflowListNonNatural = [
-'actualET_monthTot_output.nc',
 'discharge_monthAvg_output.nc',
 'fossilGroundwaterAbstraction_monthTot_output.nc',
 'fracSurfaceWaterAllocation_monthAvg_output.nc',
