@@ -261,11 +261,26 @@ lonMin          = -180 + deltaLon / 2
 lonMax          =  180 - deltaLon / 2
 
 # input and output directories:
-inputDirRoot    = sys.argv[1] 
-outputDir       = sys.argv[2]
+inputDirRoot      = sys.argv[1] 
+try:
+	outputDir = sys.argv[2]
+	if sys.argv[2] == "default": outputDir = inputDirRoot+"/global/netcdf/"
+except:
+	outputDir = inputDirRoot+"/global/netcdf/"
 
 # maximum number of cores that will be used
-max_number_of_cores = int(sys.argv[3])
+try:
+	max_number_of_cores = int(sys.argv[3])
+except:
+	max_number_of_cores = 2 # the number of cores will be limited by file sizes and available memory
+
+# maximum number of cores that will be used
+try:
+	if sys.argv[3] == "fat": max_number_of_cores = 8 # based on the experience, we can use maximum 8 cores in the fat node, for merging monthly model output in the period 1958-2010
+except:
+	pass
+
+
 print max_number_of_cores
 
 # making outputDir
@@ -317,22 +332,37 @@ extensiveList = [
 'totalWaterStorageThickness_monthEnd_output.nc'
 ]
 
-modflowList = [
+modflowListNatural = [
 'discharge_monthAvg_output.nc',
 'gwRecharge_monthTot_output.nc',
-'nonFossilGroundWaterAbstraction_monthTot_output.nc',
-'otherWaterSourceAbstraction_monthTot_output.nc',
-'totalAbstraction_monthTot_output.nc',
-'totalGroundwaterAbstraction_monthTot_output.nc',
-'totalWaterStorageThickness_monthAvg_output.nc',
-'totalWaterStorageThickness_monthEnd_output.nc'
+'totalEvaporation_monthTot_output.nc'
+'totalRunoff_monthTot_output.nc',
 ]
 
-netcdfList = extensiveList
+modflowListNonNatural = [
+'actualET_monthTot_output.nc',
+'discharge_monthAvg_output.nc',
+'fossilGroundwaterAbstraction_monthTot_output.nc',
+'fracSurfaceWaterAllocation_monthAvg_output.nc',
+'fractionTotalEvaporation_monthAvg_output.nc',
+'gwRecharge_monthTot_output.nc',
+'irrGrossDemand_monthTot_output.nc',
+'nonIrrGrossDemand_monthTot_output.nc',
+'runoff_monthTot_output.nc',
+'satDegUpp_monthAvg_output.nc',
+'satDegLow_monthAvg_output.nc',
+'surfaceWaterAbstraction_monthTot_output.nc',
+'totalAbstraction_monthTot_output.nc',
+'totalEvaporation_monthTot_output.nc',
+'totalGroundwaterAbstraction_monthTot_output.nc',
+'totalRunoff_monthTot_output.nc',
+'totalWaterStorageThickness_monthAvg_output.nc'
+]
+
+netcdfList = modflowListNonNatural
 
 for i in netcdfList:print i
 
-#~ ncores = min(len(netcdfList), 12)
 ncores = min(len(netcdfList), max_number_of_cores)
 
 ll = []
