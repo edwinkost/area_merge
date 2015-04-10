@@ -359,7 +359,7 @@ modflowListNonNatural = [
 ]
 
 netcdfList = modflowListNonNatural
-netcdfList = ['totalRunoff_monthTot_output.nc']
+netcdfList = ['totalRunoff_monthTot_output.nc','totalRunoff_annuaTot_output.nc']
 
 for i in netcdfList:print i
 
