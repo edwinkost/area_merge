@@ -336,7 +336,7 @@ modflowListNatural = [
 'discharge_monthAvg_output.nc',
 'gwRecharge_monthTot_output.nc',
 'totalEvaporation_monthTot_output.nc'
-'totalRunoff_monthTot_output.nc',
+'totalRunoff_monthTot_output.nc'
 ]
 
 modflowListNonNatural = [
@@ -359,6 +359,7 @@ modflowListNonNatural = [
 ]
 
 netcdfList = modflowListNonNatural
+netcdfList = ['totalRunoff_monthTot_output.nc']
 
 for i in netcdfList:print i
 
