@@ -182,6 +182,7 @@ latMax= 90.0
 lonMin= -180.
 lonMax= 180.0
 
+# input directory
 inputDirRoot = ''  
 try:
     inputDirRoot = str(sys.argv[2])
@@ -195,12 +196,12 @@ except:
     pass
 areas= ['M%02d'%i for i in range(1,number_of_clone_maps+1,1)]
 	
-outputDir    = inputDirRoot+"/global/states/"
+# output directory
 try:
-    inputDirRoot = int(sys.argv[4])
+    outputDir = str(sys.argv[4])
+    if outputDir == "default": outputDir = inputDirRoot+"/global/states/"
 except:
-    pass
-
+    outputDir = inputDirRoot+"/global/states/"
 try:
 	os.makedirs(outputDir)
 except:
