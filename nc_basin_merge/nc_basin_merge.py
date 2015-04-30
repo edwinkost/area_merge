@@ -358,8 +358,59 @@ modflowListNonNatural = [
 'totalWaterStorageThickness_monthAvg_output.nc'
 ]
 
+list27April2015 = [
+'discharge_monthAvg_output.nc',
+'actualET_monthTot_output.nc',
+'baseflow_monthTot_output.nc',
+'desalinationAbstraction_monthTot_output.nc',
+'fossilGroundwaterAbstraction_monthTot_output.nc',
+'fracSurfaceWaterAllocation_monthAvg_output.nc',
+'fractionTotalEvaporation_monthAvg_output.nc',
+'groundwaterAbsReturnFlow_monthAvg_output.nc',
+'groundwaterAbsReturnFlow_monthTot_output.nc',
+'gwNetCapRise_monthTot_output.nc',
+'gwRecharge_monthAvg_output.nc',
+'gwRecharge_monthTot_output.nc',
+'interceptStor_monthAvg_output.nc',
+'irrGrossDemand_monthTot_output.nc',
+'net_liquid_water_to_soil_monthTot_output.nc',
+'nonFossilGroundwaterAbstraction_monthTot_output.nc',
+'nonIrrGrossDemand_monthTot_output.nc',
+'nonIrrReturnFlow_monthTot_output.nc',
+'nonIrrWaterConsumption_monthTot_output.nc',
+'runoff_monthTot_output.nc',
+'satDegLow_monthAvg_output.nc',
+'satDegUpp_monthAvg_output.nc',
+'snowCoverSWE_monthAvg_output.nc',
+'snowFreeWater_monthAvg_output.nc',
+'storGroundwaterFossil_monthAvg_output.nc',
+'storGroundwaterFossil_monthEnd_output.nc',
+'storGroundwaterTotal_monthAvg_output.nc',
+'storGroundwaterTotal_monthEnd_output.nc',
+'storGroundwater_monthAvg_output.nc',
+'storGroundwater_monthEnd_output.nc',
+'storLowTotal_monthAvg_output.nc',
+'storUppTotal_monthAvg_output.nc',
+'surfaceWaterAbstraction_monthTot_output.nc',
+'temperature_monthAvg_output.nc',
+'topWaterLayer_monthAvg_output.nc',
+'totalActiveStorageThickness_monthAvg_output.nc',
+'totalActiveStorageThickness_monthEnd_output.nc',
+'totalEvaporation_monthAvg_output.nc',
+'totalEvaporation_monthTot_output.nc',
+'totalGrossDemand_monthTot_output.nc',
+'totalGroundwaterAbstraction_monthAvg_output.nc',
+'totalGroundwaterAbstraction_monthTot_output.nc',
+'totalRunoff_monthAvg_output.nc',
+'totalRunoff_monthTot_output.nc',
+'totalWaterStorageThickness_monthAvg_output.nc',
+'totalWaterStorageThickness_monthEnd_output.nc'
+]
+
 netcdfList = modflowListNonNatural
 netcdfList = ['totalRunoff_monthTot_output.nc','totalRunoff_annuaTot_output.nc']
+
+netcdfList = list27April2015
 
 for i in netcdfList:print i
 
