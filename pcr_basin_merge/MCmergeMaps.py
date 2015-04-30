@@ -190,6 +190,7 @@ except:
     pass
 
 # output directory
+outputDir = inputDirRoot+"/global/states/"
 try:
     outputDir = str(sys.argv[3])
     if outputDir == "default": outputDir = inputDirRoot+"/global/states/"
