@@ -203,7 +203,7 @@ except:
 # number of cores
 ncores = 24
 try:
-    number_of_clone_maps = int(sys.argv[4])
+    ncores = int(sys.argv[4])
 except:
     pass
 
