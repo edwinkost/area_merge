@@ -189,16 +189,9 @@ try:
 except:
     pass
 
-number_of_clone_maps = 53
-try:
-    number_of_clone_maps = int(sys.argv[3])
-except:
-    pass
-areas= ['M%02d'%i for i in range(1,number_of_clone_maps+1,1)]
-	
 # output directory
 try:
-    outputDir = str(sys.argv[4])
+    outputDir = str(sys.argv[3])
     if outputDir == "default": outputDir = inputDirRoot+"/global/states/"
 except:
     outputDir = inputDirRoot+"/global/states/"
@@ -206,6 +199,20 @@ try:
 	os.makedirs(outputDir)
 except:
 	pass
+
+# number of cores
+ncores = 24
+try:
+    number_of_clone_maps = int(sys.argv[4])
+except:
+    pass
+
+number_of_clone_maps = 53
+try:
+    number_of_clone_maps = int(sys.argv[5])
+except:
+    pass
+areas= ['M%02d'%i for i in range(1,number_of_clone_maps+1,1)]
 
 #-main script
 #-get clone
@@ -220,7 +227,7 @@ setclone(tempCloneMap)
 
 inputDir= os.path.join(inputDirRoot,areas[0],'states')
 files= getFileList(inputDir, '*%s.map' % chosenDate)
-ncores = min(len(files), 5)
+ncores = min(len(files), ncores)
 print 'Using %d cores to process' % ncores,
 for fileName in files.keys():
 	print fileName,
