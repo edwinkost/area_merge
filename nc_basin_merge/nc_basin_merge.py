@@ -297,10 +297,10 @@ except:
                   #~ 'discharge_annuaAvg.nc'] # ; netcdfList(netcdfInputDir)[0:]
 
 extensiveList = [
+'discharge_monthAvg_output.nc',
 'actualET_monthTot_output.nc',
 'baseflow_monthTot_output.nc',
 'desalinationAbstraction_monthTot_output.nc',
-'discharge_monthAvg_output.nc',
 'fractionTotalEvaporation_monthAvg_output.nc',
 'gwNetCapRise_monthTot_output.nc',
 'gwRecharge_monthTot_output.nc',
