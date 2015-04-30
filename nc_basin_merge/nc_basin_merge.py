@@ -262,6 +262,7 @@ lonMax          =  180 - deltaLon / 2
 
 # input and output directories:
 inputDirRoot      = sys.argv[1] 
+outputDir = inputDirRoot+"/global/netcdf/"
 try:
 	outputDir = sys.argv[2]
 	if sys.argv[2] == "default": outputDir = inputDirRoot+"/global/netcdf/"
