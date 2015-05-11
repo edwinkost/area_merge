@@ -59,7 +59,8 @@ def mergeNetCDF(inputTuple):
 	netCDFInput = ncFileNameDict(inputDirRoot, areas, ncName)
 	#-netDCF output
 	netCDFOutput= os.path.join(outputDir,ncName)
-	ncFormat= 'NETCDF3_CLASSIC'
+	#~ ncFormat= 'NETCDF3_CLASSIC'
+	ncFormat= 'NETCDF4'
 
 	#-set dimensions, attributes, and dimensions per netCDF input data set
 	# and retrieve the resolution and definition of coordinates and calendar
@@ -336,7 +337,8 @@ extensiveList = [
 modflowListNatural = [
 'discharge_monthAvg_output.nc',
 'gwRecharge_monthTot_output.nc',
-'totalEvaporation_monthTot_output.nc'
+'storGroundwater_monthAvg_output.nc',
+'totalEvaporation_monthTot_output.nc',
 'totalRunoff_monthTot_output.nc'
 ]
 
@@ -408,10 +410,22 @@ list27April2015 = [
 'totalWaterStorageThickness_monthEnd_output.nc'
 ]
 
+additionalList = \
+[
+'storGroundwater_monthAvg_output.nc',
+'baseflow_monthTot_output.nc',
+'satDegUpp_monthAvg_output.nc',
+'storUppTotal_monthAvg_output.nc',
+'discharge_annuaAvg_output.nc',
+'baseflow_annuaTot_output.nc'
+]
+
 netcdfList = modflowListNonNatural
 netcdfList = ['totalRunoff_monthTot_output.nc','totalRunoff_annuaTot_output.nc']
 
 netcdfList = list27April2015
+
+netcdfList = additionalList
 
 for i in netcdfList:print i
 
