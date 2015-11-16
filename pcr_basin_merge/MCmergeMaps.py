@@ -194,6 +194,7 @@ outputDir = inputDirRoot+"/global/states/"
 try:
     outputDir = str(sys.argv[3])
     if outputDir == "default": outputDir = inputDirRoot+"/global/states/"
+    if outputDir == "initial": outputDir = inputDirRoot+"/initial_conditions/"
 except:
     outputDir = inputDirRoot+"/global/states/"
 try:
