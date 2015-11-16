@@ -223,6 +223,7 @@ nrCols= int((lonMax-lonMin)/deltaLon)
 tempCloneMap= 'temp_clone.map'
 command= 'mapattr -s -R %d -C %d -P "yb2t"	-B -x %f -y %f -l %f %s' %\
 	(nrRows,nrCols,lonMin,latMax,deltaLat,tempCloneMap)
+print command
 os.system(command)
 setclone(tempCloneMap)
 
