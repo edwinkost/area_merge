@@ -114,8 +114,8 @@ def mergeNetCDF(inputTuple):
 		
 		# temporal resolution
 		timeStepType = "daily"
-		if (f.variables['time'][1] - f.variables['time'][0]) > 25: timeStepType = "monthly"
-		if (f.variables['time'][1] - f.variables['time'][0]) > 305: timeStepType = "yearly"
+		if (f.variables['time'][1] - f.variables['time'][0]) > 25.0: timeStepType = "monthly"
+		if (f.variables['time'][1] - f.variables['time'][0]) > 305.0: timeStepType = "yearly"
 		
 		if timeStepType == "daily":
 			number_of_days = (endTime - startTime).days + 1
