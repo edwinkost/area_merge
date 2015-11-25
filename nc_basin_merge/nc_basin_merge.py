@@ -8,9 +8,23 @@ import netCDF4 as nc
 import datetime
 import glob
 from multiprocessing import Pool
+import calendar
 
 # file cache to minimize/reduce opening/closing files.  
 filecache = dict()
+
+
+def calculate_monthdelta(date1, date2):
+    def is_last_day_of_the_month(date):
+        days_in_month = calendar.monthrange(date.year, date.month)[1]
+        return date.day == days_in_month
+    imaginary_day_2 = 31 if is_last_day_of_the_month(date2) else date2.day
+    monthdelta = (
+        (date2.month - date1.month) +
+        (date2.year - date1.year) * 12 +
+        (-1 if date1.day > imaginary_day_2 else 0)
+        )
+    return monthdelta
 
 def getMax(x,a):
 	m= float(a.max())
@@ -45,13 +59,19 @@ def ncFileNameDict(inputDirRoot, areas, ncFileName):
 	return netcdfInputDict
 
 def mergeNetCDF(inputTuple):
-	ncName   = inputTuple[0]
+	
+	ncName    = inputTuple[0]
 	latMin    = inputTuple[1]
-	latMax   = inputTuple[2]
-	lonMin   = inputTuple[3]
-	lonMax   = inputTuple[4]
-	deltaLat = inputTuple[5]
-	deltaLon = inputTuple[6]
+	latMax    = inputTuple[2]
+	lonMin    = inputTuple[3]
+	lonMax    = inputTuple[4]
+	deltaLat  = inputTuple[5]
+	deltaLon  = inputTuple[6]
+	
+	startDate    = inputTuple[7]
+	endDate      = inputTuple[8] 
+	timeStepType = inputTuple[9]
+	
 	print 'combining files for %s'%ncName
 	scriptStartTime = tm.time()
 	
@@ -59,19 +79,58 @@ def mergeNetCDF(inputTuple):
 	netCDFInput = ncFileNameDict(inputDirRoot, areas, ncName)
 	#-netDCF output
 	netCDFOutput= os.path.join(outputDir,ncName)
-	#~ ncFormat= 'NETCDF3_CLASSIC'
-	ncFormat= 'NETCDF4'
+	#~ ncFormat = 'NETCDF3_CLASSIC'
+	ncFormat = 'NETCDF4'
+	
+	# option to use zlib compression:
+	using_zlib = True
 
 	#-set dimensions, attributes, and dimensions per netCDF input data set
 	# and retrieve the resolution and definition of coordinates and calendar
 	attributes= {}
 	dimensions= {}
 	variables= {}
-	variableName= None
+	variableName = None
 	
 	calendar= {}
-	uniqueTimes= np.array([])
+	uniqueTimes = np.array([])
 
+	# defining time based on the given arguments 
+	if startDate != None and endDate != None and\    
+       timeStepType != None:
+
+		# start time and end time
+		sd = str(startDate).split('-')
+        startTime = datetime.datetime(int(sd[0]), int(sd[1]), int(sd[2]), 0)
+        ed = str(endDate).split('-')
+        endTime   = datetime.datetime(int(ed[0]), int(ed[1]), int(ed[2]), 0)
+
+        # open the first netcdf file to get time units and time calendar
+        f = nc.Dataset(netCDFInput.values()[0])
+        time_units    = f.variables['time'].units
+        time_calendar = f.variables['time'].calendar
+        f.close() 
+        
+        # temporal resolution
+        timeStepType = "daily"
+        if (f.variables['time'][1] - f.variables['time'][0] > 25): timeStepType = "monthly"
+        if (f.variables['time'][1] - f.variables['time'][0] > 305): timeStepType = "yearly"
+        
+        if timeStepType == "daily":
+			number_of_days = (endTime - startTime).days + 1
+			datetime_range = [startTime + datetime.timedelta(days = x) for x in range(0, number_of_days)]
+			
+        if timeStepType == "monthly":
+			number_of_months = calculate_monthdelta(startTime, endTime +  datetime.timedelta(days = 1)) + 1
+			datetime_range = [startTime + dateutil.relativedelta.relativedelta(months =+x) for x in range(0, number_of_months)]
+
+        if timeStepType == "yearly":
+			number_of_years = startTime.year - endTime.year + 1
+			datetime_range = [startTime + dateutil.relativedelta.relativedelta(years =+x) for x in range(0, number_of_years)]
+		
+		# time variables that will be used 
+		uniqueTimes = nc.date2num(datetime_range, time_units, time_calendar)
+	
 	for ncFile in netCDFInput.values():
 
 		# open netCDF file
@@ -174,7 +233,9 @@ def mergeNetCDF(inputTuple):
 		varStructure= ('latitude','longitude')  
 	else:
 		varStructure= ('time','latitude','longitude')  
-	variable= rootgrp.createVariable(variableName,'f4',varStructure,fill_value= MV)
+
+	variable = rootgrp.createVariable(variableName, 'f4', varStructure, fill_value = MV, zlib = using_zlib)
+
 	#-set variable attributes and overall values
 	for index in attributes.keys():
 		for name in variables[index][variableName].ncattrs():
@@ -281,8 +342,6 @@ try:
 	if sys.argv[3] == "fat": max_number_of_cores = 8 # based on the experience, we can use maximum 8 cores in the fat node, for merging monthly model output in the period 1958-2010
 except:
 	pass
-
-
 print max_number_of_cores
 
 # making outputDir
@@ -290,6 +349,18 @@ try:
 	os.makedirs(outputDir)
 except:
 	pass	
+
+# starting and end dates
+startDate    = None            # 
+endDate      = None            # 
+timeStepType = None            # options are daily, monthly and annually 
+
+try:
+	startDate    = str(sys.argv[4]) 
+	endDate      = str(sys.argv[5])
+	timeStepType = str(sys.argv[6]) 
+except:
+	pass
 
 #-main script
 
@@ -427,13 +498,15 @@ netcdfList = list27April2015
 
 netcdfList = additionalList
 
+netcdfList = ['totalWaterStorageThickness_monthAvg_output.nc', 'discharge_monthAvg_output.nc']
+
 for i in netcdfList:print i
 
 ncores = min(len(netcdfList), max_number_of_cores)
 
 ll = []
 for ncName in netcdfList:
-	ll.append((ncName, latMin, latMax, lonMin, lonMax, deltaLat, deltaLon))
+	ll.append((ncName, latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate, timeStepType))
 
 pool = Pool(processes=ncores)    # start "ncores" of worker processes
 pool.map(mergeNetCDF, ll)        # multicore processing
