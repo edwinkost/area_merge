@@ -506,13 +506,14 @@ netcdfList = list27April2015
 
 netcdfList = additionalList
 
-netcdfList = ['totalWaterStorageThickness_monthAvg_output.nc', 'discharge_monthAvg_output.nc']
+netcdfList = ['totalWaterStorageThickness_monthAvg_output.nc', 'discharge_monthAvg_output.nc', 'storGroundwater_monthAvg_output.nc']
 
 for i in netcdfList:print i
 
 ncores = min(len(netcdfList), max_number_of_cores)
 
-mergeNetCDF((netcdfList[0], latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate))
+#~ # testing for a single job
+#~ mergeNetCDF((netcdfList[0], latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate))
 
 ll = []
 for ncName in netcdfList:
