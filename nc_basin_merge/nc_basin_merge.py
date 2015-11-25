@@ -173,8 +173,8 @@ def mergeNetCDF(inputTuple):
 			#-time
 			if uniqueTimes.size == 0:
 				uniqueTimes= variables[index]['time'][:]
-			else:
-				uniqueTimes= np.unique(np.c_[uniqueTimes[:],variables[index]['time'][:]])
+			#~ else:
+				#~ uniqueTimes= np.unique(np.c_[uniqueTimes[:],variables[index]['time'][:]])
 			uniqueTimes.sort()
 		keys= variables[index].keys()
 		for key in dimensions[index].keys():
