@@ -70,7 +70,6 @@ def mergeNetCDF(inputTuple):
 	
 	startDate    = inputTuple[7]
 	endDate      = inputTuple[8] 
-	timeStepType = inputTuple[9]
 	
 	print 'combining files for %s'%ncName
 	scriptStartTime = tm.time()
@@ -96,7 +95,7 @@ def mergeNetCDF(inputTuple):
 	uniqueTimes = np.array([])
 
 	# defining time based on the given arguments 
-	if startDate != None and endDate != None and timeStepType != None:
+	if startDate != None and endDate != None:
 
 		# start time and end time
 		sd = str(startDate).split('-')
@@ -112,7 +111,6 @@ def mergeNetCDF(inputTuple):
 		f = nc.Dataset(ncFile)
 		time_units    = f.variables['time'].units
 		time_calendar = f.variables['time'].calendar
-		f.close() 
 		
 		# temporal resolution
 		timeStepType = "daily"
@@ -123,6 +121,8 @@ def mergeNetCDF(inputTuple):
 		if (f.variables['time'][1] - f.variables['time'][0]) > 25.0: timeStepType = "monthly"
 		if (f.variables['time'][1] - f.variables['time'][0]) > 305.0: timeStepType = "yearly"
 		
+		f.close() 
+
 		if timeStepType == "daily":
 			number_of_days = (endTime - startTime).days + 1
 			datetime_range = [startTime + datetime.timedelta(days = x) for x in range(0, number_of_days)]
@@ -360,12 +360,12 @@ except:
 # starting and end dates
 startDate    = None            # 
 endDate      = None            # 
-timeStepType = None            # options are daily, monthly and annually 
+#~ timeStepType = None            # options are daily, monthly and annually 
 
 try:
 	startDate    = str(sys.argv[4]) 
 	endDate      = str(sys.argv[5])
-	timeStepType = str(sys.argv[6]) 
+	#~ timeStepType = str(sys.argv[6]) 
 except:
 	pass
 
@@ -511,7 +511,7 @@ for i in netcdfList:print i
 
 ncores = min(len(netcdfList), max_number_of_cores)
 
-mergeNetCDF((netcdfList[0], latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate, timeStepType))
+mergeNetCDF((netcdfList[0], latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate))
 
 ll = []
 for ncName in netcdfList:
