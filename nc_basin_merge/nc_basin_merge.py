@@ -517,7 +517,7 @@ ncores = min(len(netcdfList), max_number_of_cores)
 
 ll = []
 for ncName in netcdfList:
-	ll.append((ncName, latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate, timeStepType))
+	ll.append((ncName, latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate))
 
 pool = Pool(processes=ncores)    # start "ncores" of worker processes
 pool.map(mergeNetCDF, ll)        # multicore processing
