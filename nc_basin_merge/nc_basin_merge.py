@@ -96,8 +96,7 @@ def mergeNetCDF(inputTuple):
 	uniqueTimes = np.array([])
 
 	# defining time based on the given arguments 
-	if startDate != None and endDate != None and\    
-       timeStepType != None:
+	if startDate != None and endDate != None and timeStepType != None:
 
 		# start time and end time
 		sd = str(startDate).split('-')
