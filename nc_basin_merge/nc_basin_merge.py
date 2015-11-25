@@ -503,6 +503,8 @@ for i in netcdfList:print i
 
 ncores = min(len(netcdfList), max_number_of_cores)
 
+mergeNetCDF((netcdfList[0], latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate, timeStepType))
+
 ll = []
 for ncName in netcdfList:
 	ll.append((ncName, latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate, timeStepType))
