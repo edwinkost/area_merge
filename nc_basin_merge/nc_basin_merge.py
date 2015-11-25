@@ -107,7 +107,9 @@ def mergeNetCDF(inputTuple):
 		print netCDFInput.values()[0]
 		
 		# open the first netcdf file to get time units and time calendar
-		f = nc.Dataset(netCDFInput.values()[0])
+		ncFile = netCDFInput.values()[0]
+		print ncFile
+		f = nc.Dataset(ncFile)
 		time_units    = f.variables['time'].units
 		time_calendar = f.variables['time'].calendar
 		f.close() 
