@@ -9,7 +9,7 @@ import datetime
 import glob
 from multiprocessing import Pool
 import calendar
-import dateutil
+from dateutil.relativedelta import *
 
 # file cache to minimize/reduce opening/closing files.  
 filecache = dict()
@@ -130,11 +130,11 @@ def mergeNetCDF(inputTuple):
 			
 		if timeStepType == "monthly":
 			number_of_months = calculate_monthdelta(startTime, endTime +  datetime.timedelta(days = 1)) + 1
-			datetime_range = [startTime + dateutil.relativedelta.relativedelta(months =+x) for x in range(0, number_of_months)]
+			datetime_range = [startTime + relativedelta(months =+x) for x in range(0, number_of_months)]
 		
 		if timeStepType == "yearly":
 			number_of_years = startTime.year - endTime.year + 1
-			datetime_range = [startTime + dateutil.relativedelta.relativedelta(years =+x) for x in range(0, number_of_years)]
+			datetime_range = [startTime + relativedelta(years =+x) for x in range(0, number_of_years)]
 		
 		# time variables that will be used 
 		uniqueTimes = nc.date2num(datetime_range, time_units, time_calendar)
