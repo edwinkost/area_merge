@@ -115,15 +115,15 @@ def mergeNetCDF(inputTuple):
         if (f.variables['time'][1] - f.variables['time'][0] > 25): timeStepType = "monthly"
         if (f.variables['time'][1] - f.variables['time'][0] > 305): timeStepType = "yearly"
         
-        if timeStepType == "daily":
+		if timeStepType == "daily":
 			number_of_days = (endTime - startTime).days + 1
 			datetime_range = [startTime + datetime.timedelta(days = x) for x in range(0, number_of_days)]
 			
-        if timeStepType == "monthly":
+		if timeStepType == "monthly":
 			number_of_months = calculate_monthdelta(startTime, endTime +  datetime.timedelta(days = 1)) + 1
 			datetime_range = [startTime + dateutil.relativedelta.relativedelta(months =+x) for x in range(0, number_of_months)]
 
-        if timeStepType == "yearly":
+		if timeStepType == "yearly":
 			number_of_years = startTime.year - endTime.year + 1
 			datetime_range = [startTime + dateutil.relativedelta.relativedelta(years =+x) for x in range(0, number_of_years)]
 		
