@@ -100,21 +100,21 @@ def mergeNetCDF(inputTuple):
 
 		# start time and end time
 		sd = str(startDate).split('-')
-        startTime = datetime.datetime(int(sd[0]), int(sd[1]), int(sd[2]), 0)
-        ed = str(endDate).split('-')
-        endTime   = datetime.datetime(int(ed[0]), int(ed[1]), int(ed[2]), 0)
-
-        # open the first netcdf file to get time units and time calendar
-        f = nc.Dataset(netCDFInput.values()[0])
-        time_units    = f.variables['time'].units
-        time_calendar = f.variables['time'].calendar
-        f.close() 
-        
-        # temporal resolution
-        timeStepType = "daily"
-        if (f.variables['time'][1] - f.variables['time'][0] > 25): timeStepType = "monthly"
-        if (f.variables['time'][1] - f.variables['time'][0] > 305): timeStepType = "yearly"
-        
+		startTime = datetime.datetime(int(sd[0]), int(sd[1]), int(sd[2]), 0)
+		ed = str(endDate).split('-')
+		endTime   = datetime.datetime(int(ed[0]), int(ed[1]), int(ed[2]), 0)
+		
+		# open the first netcdf file to get time units and time calendar
+		f = nc.Dataset(netCDFInput.values()[0])
+		time_units    = f.variables['time'].units
+		time_calendar = f.variables['time'].calendar
+		f.close() 
+		
+		# temporal resolution
+		timeStepType = "daily"
+		if (f.variables['time'][1] - f.variables['time'][0] > 25): timeStepType = "monthly"
+		if (f.variables['time'][1] - f.variables['time'][0] > 305): timeStepType = "yearly"
+		
 		if timeStepType == "daily":
 			number_of_days = (endTime - startTime).days + 1
 			datetime_range = [startTime + datetime.timedelta(days = x) for x in range(0, number_of_days)]
@@ -122,7 +122,7 @@ def mergeNetCDF(inputTuple):
 		if timeStepType == "monthly":
 			number_of_months = calculate_monthdelta(startTime, endTime +  datetime.timedelta(days = 1)) + 1
 			datetime_range = [startTime + dateutil.relativedelta.relativedelta(months =+x) for x in range(0, number_of_months)]
-
+		
 		if timeStepType == "yearly":
 			number_of_years = startTime.year - endTime.year + 1
 			datetime_range = [startTime + dateutil.relativedelta.relativedelta(years =+x) for x in range(0, number_of_years)]
