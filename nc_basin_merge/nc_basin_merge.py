@@ -115,10 +115,6 @@ def mergeNetCDF(inputTuple):
 		
 		# temporal resolution
 		timeStepType = "daily"
-		
-		print f.variables['time'][1]
-		print f.variables['time'][0]
-		
 		if (f.variables['time'][1] - f.variables['time'][0]) > 25.0: timeStepType = "monthly"
 		if (f.variables['time'][1] - f.variables['time'][0]) > 305.0: timeStepType = "yearly"
 		
@@ -263,7 +259,9 @@ def mergeNetCDF(inputTuple):
 	
 	print 'nr of time steps = %s, nr of files = %s ' % (len(uniqueTimes), len(netCDFInput))
 	for time in uniqueTimes[:]:
-		print 'processing %s for time index %.0d' %(ncName, 1+ time - min(uniqueTimes))
+		#~ print 'processing %s for time index %.0d' %(ncName, 1+ time - min(uniqueTimes))
+		print 'processing %s for time index %.0d' %(ncName, time)
+
 		#-create empty field to fill
 		variableArray= np.ones((len(latitudes),len(longitudes)))*MV
 		
