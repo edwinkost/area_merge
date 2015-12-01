@@ -506,6 +506,8 @@ netcdfList = additionalList
 
 netcdfList = ['totalWaterStorageThickness_monthAvg_output.nc', 'discharge_monthAvg_output.nc', 'storGroundwater_monthAvg_output.nc']
 
+netcdfList = ['actBareSoilEvap_monthTot_output.nc', 'discharge_monthAvg_output.nc']
+
 for i in netcdfList:print i
 
 ncores = min(len(netcdfList), max_number_of_cores)
