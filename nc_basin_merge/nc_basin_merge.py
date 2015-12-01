@@ -320,11 +320,11 @@ def mergeNetCDF(inputTuple):
 #~ outputDir    = inputDirRoot+'/global/'
 #~ outputDir    = '/projects/wtrcycle/users/edwinhs/05min_runs_28_november_2014/multi_cores_natural_1960_to_2010/global/'
 #~ outputDir    = '/projects/wtrcycle/users/edwinhs/05min_runs_november_2014/test_multi_cores_natural/global/'      # inputDirRoot' # inputDirRoot
-areas           = ['M%02d'%i for i in range(1,54,1)]
-deltaLat        = 5.0/60.0
-deltaLon        = 5.0/60.0
+areas           = ['M%02d'%i for i in range(1,8,1)]
+deltaLat        = 30.0/60.0
+deltaLon        = 30.0/60.0
 latMin          =  -90 + deltaLat / 2
-latMax		    =   90 - deltaLat / 2
+latMax		=   90 - deltaLat / 2
 lonMin          = -180 + deltaLon / 2
 lonMax          =  180 - deltaLon / 2
 
@@ -505,6 +505,8 @@ netcdfList = list27April2015
 netcdfList = additionalList
 
 netcdfList = ['totalWaterStorageThickness_monthAvg_output.nc', 'discharge_monthAvg_output.nc', 'storGroundwater_monthAvg_output.nc']
+
+netcdfList = ['actBareSoilEvap_monthTot_output.nc', 'discharge_monthAvg_output.nc']
 
 for i in netcdfList:print i
 
