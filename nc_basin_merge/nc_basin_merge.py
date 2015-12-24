@@ -115,6 +115,7 @@ def mergeNetCDF(inputTuple):
 		
 		# temporal resolution
 		timeStepType = "daily"
+		
 		if (f.variables['time'][1] - f.variables['time'][0]) > 25.0: timeStepType = "monthly"
 		if (f.variables['time'][1] - f.variables['time'][0]) > 305.0: timeStepType = "yearly"
 		
@@ -129,7 +130,7 @@ def mergeNetCDF(inputTuple):
 			datetime_range = [startTime + relativedelta(months =+x) for x in range(0, number_of_months)]
 		
 		if timeStepType == "yearly":
-			number_of_years = startTime.year - endTime.year + 1
+			number_of_years = endTime.year - startTime.year + 1
 			datetime_range = [startTime + relativedelta(years =+x) for x in range(0, number_of_years)]
 		
 		# time variables that will be used 
@@ -259,8 +260,9 @@ def mergeNetCDF(inputTuple):
 	
 	print 'nr of time steps = %s, nr of files = %s ' % (len(uniqueTimes), len(netCDFInput))
 	for time in uniqueTimes[:]:
+
 		#~ print 'processing %s for time index %.0d' %(ncName, 1+ time - min(uniqueTimes))
-		print 'processing %s for time index %.0d' %(ncName, time)
+		print 'processing %s for time %.0d' %(ncName, time)
 
 		#-create empty field to fill
 		variableArray= np.ones((len(latitudes),len(longitudes)))*MV
@@ -320,11 +322,11 @@ def mergeNetCDF(inputTuple):
 #~ outputDir    = inputDirRoot+'/global/'
 #~ outputDir    = '/projects/wtrcycle/users/edwinhs/05min_runs_28_november_2014/multi_cores_natural_1960_to_2010/global/'
 #~ outputDir    = '/projects/wtrcycle/users/edwinhs/05min_runs_november_2014/test_multi_cores_natural/global/'      # inputDirRoot' # inputDirRoot
-areas           = ['M%02d'%i for i in range(1,8,1)]
-deltaLat        = 30.0/60.0
-deltaLon        = 30.0/60.0
+areas           = ['M%02d'%i for i in range(1,54,1)]
+deltaLat        = 5.0/60.0
+deltaLon        = 5.0/60.0
 latMin          =  -90 + deltaLat / 2
-latMax		=   90 - deltaLat / 2
+latMax		    =   90 - deltaLat / 2
 lonMin          = -180 + deltaLon / 2
 lonMax          =  180 - deltaLon / 2
 
@@ -357,156 +359,98 @@ except:
 	pass	
 
 # starting and end dates
-startDate    = None            # 
-endDate      = None            # 
-#~ timeStepType = None            # options are daily, monthly and annually 
-
+startDate = None 
+endDate = None 
 try:
 	startDate    = str(sys.argv[4]) 
 	endDate      = str(sys.argv[5])
-	#~ timeStepType = str(sys.argv[6]) 
+	if startDate == "None": startDate = None
+	if endDate == "None": endDate = None
 except:
 	pass
 
-#-main script
+# type of netcdf file list (see below):
+list_type = None
+try:
+	list_type = str(sys.argv[6]) 
+except:
+	pass
 
-#~ netcdfInputDir = os.path.join(inputDirRoot, 'M12/netcdf')
-#~ netcdfList     = ['actualET_annuaTot.nc',
-                  #~ 'discharge_annuaAvg.nc'] # ; netcdfList(netcdfInputDir)[0:]
+#- main script
 
-extensiveList = [
-'discharge_monthAvg_output.nc',
-'actualET_monthTot_output.nc',
-'baseflow_monthTot_output.nc',
-'desalinationAbstraction_monthTot_output.nc',
-'fractionTotalEvaporation_monthAvg_output.nc',
-'gwNetCapRise_monthTot_output.nc',
-'gwRecharge_monthTot_output.nc',
-'irrGrossDemand_monthTot_output.nc',
-'net_liquid_water_to_soil_monthTot_output.nc',
-'nonFossilGroundWaterAbstraction_monthTot_output.nc',
-'nonIrrGrossDemand_monthTot_output.nc',
-'nonIrrReturnFlow_monthTot_output.nc',
-'otherWaterSourceAbstraction_monthTot_output.nc',
-'runoff_monthTot_output.nc',
-'satDegUpp_monthAvg_output.nc',
-'satDegLow_monthAvg_output.nc',
-'storGroundwater_monthAvg_output.nc',
-'storGroundwater_monthEnd_output.nc',
-'storGroundwaterFossil_monthAvg_output.nc',
-'storGroundwaterFossil_monthEnd_output.nc',
-'storGroundwaterTotal_monthAvg_output.nc',
-'storGroundwaterTotal_monthEnd_output.nc',
-'storUppTotal_monthAvg_output.nc',
-'storLowTotal_monthAvg_output.nc',
-'surfaceWaterAbstraction_monthTot_output.nc',
-'totalAbstraction_monthTot_output.nc',
-'totalActiveStorageThickness_monthAvg_output.nc',
-'totalActiveStorageThickness_monthEnd_output.nc',
-'totalEvaporation_monthTot_output.nc',
-'totalGrossDemand_monthTot_output.nc',
-'totalGroundwaterAbstraction_monthTot_output.nc',
-'totalRunoff_monthTot_output.nc',
-'totalWaterStorageThickness_monthAvg_output.nc',
-'totalWaterStorageThickness_monthEnd_output.nc'
+# the annual files (default)
+netcdfList = [
+'snowCoverSWE_annuaAvg_output.nc',
+'snowFreeWater_annuaAvg_output.nc',
+'interceptStor_annuaAvg_output.nc',
+'topWaterLayer_annuaAvg_output.nc',
+'storUppTotal_annuaAvg_output.nc',
+'storLowTotal_annuaAvg_output.nc',
+'storGroundwater_annuaAvg_output.nc',
+'surfaceWaterStorage_annuaAvg_output.nc',
+'irrGrossDemand_annuaTot_output.nc',
+'nonIrrGrossDemand_annuaTot_output.nc',
+'totalRunoff_annuaTot_output.nc',
+'totalEvaporation_annuaTot_output.nc',
+'discharge_annuaAvg_output.nc'
 ]
 
-modflowListNatural = [
-'discharge_monthAvg_output.nc',
-'gwRecharge_monthTot_output.nc',
-'storGroundwater_monthAvg_output.nc',
-'totalEvaporation_monthTot_output.nc',
-'totalRunoff_monthTot_output.nc'
-]
+# the monthly files
+if list_type == "monthly_12":\
+	netcdfList = [
+		'snowCoverSWE_monthAvg_output.nc',
+		'snowFreeWater_monthAvg_output.nc',
+		'interceptStor_monthAvg_output.nc',
+		'topWaterLayer_monthAvg_output.nc',
+		'storUppTotal_monthAvg_output.nc',
+		'storLowTotal_monthAvg_output.nc',
+		'storGroundwater_monthAvg_output.nc',
+		'surfaceWaterStorage_monthAvg_output.nc',
+		'discharge_monthAvg_output.nc',
+		'totalGroundwaterAbstraction_monthTot_output.nc',
+		'gwRecharge_monthTot_output.nc',
+		'precipitation_monthTot_output.nc'
+		]
 
-modflowListNonNatural = [
-'discharge_monthAvg_output.nc',
-'fossilGroundwaterAbstraction_monthTot_output.nc',
-'fracSurfaceWaterAllocation_monthAvg_output.nc',
-'fractionTotalEvaporation_monthAvg_output.nc',
-'gwRecharge_monthTot_output.nc',
-'irrGrossDemand_monthTot_output.nc',
-'nonIrrGrossDemand_monthTot_output.nc',
-'runoff_monthTot_output.nc',
-'satDegUpp_monthAvg_output.nc',
-'satDegLow_monthAvg_output.nc',
-'surfaceWaterAbstraction_monthTot_output.nc',
-'totalAbstraction_monthTot_output.nc',
-'totalEvaporation_monthTot_output.nc',
-'totalGroundwaterAbstraction_monthTot_output.nc',
-'totalRunoff_monthTot_output.nc',
-'totalWaterStorageThickness_monthAvg_output.nc'
-]
+# the monthly files
+if list_type == "monthly_16":\
+	netcdfList = [
+		'totalWaterStorageThickness_monthAvg_output.nc',
+		'discharge_monthAvg_output.nc',
+		'totalGroundwaterAbstraction_monthTot_output.nc',
+		'gwRecharge_monthTot_output.nc',
+        'totalRunoff_monthTot_output.nc',
+		'snowCoverSWE_monthAvg_output.nc',
+		'snowFreeWater_monthAvg_output.nc',
+		'interceptStor_monthAvg_output.nc',
+		'topWaterLayer_monthAvg_output.nc',
+		'storUppTotal_monthAvg_output.nc',
+		'storLowTotal_monthAvg_output.nc',
+		'storGroundwater_monthAvg_output.nc',
+		'surfaceWaterStorage_monthAvg_output.nc',
+		'totalEvaporation_monthTot_output.nc',
+		'precipitation_monthTot_output.nc',
+		'waterBodyActEvaporation_monthTot_output.nc'
+		]
 
-list27April2015 = [
-'discharge_monthAvg_output.nc',
-'actualET_monthTot_output.nc',
-'baseflow_monthTot_output.nc',
-'desalinationAbstraction_monthTot_output.nc',
-'fossilGroundwaterAbstraction_monthTot_output.nc',
-'fracSurfaceWaterAllocation_monthAvg_output.nc',
-'fractionTotalEvaporation_monthAvg_output.nc',
-'groundwaterAbsReturnFlow_monthAvg_output.nc',
-'groundwaterAbsReturnFlow_monthTot_output.nc',
-'gwNetCapRise_monthTot_output.nc',
-'gwRecharge_monthAvg_output.nc',
-'gwRecharge_monthTot_output.nc',
-'interceptStor_monthAvg_output.nc',
-'irrGrossDemand_monthTot_output.nc',
-'net_liquid_water_to_soil_monthTot_output.nc',
-'nonFossilGroundwaterAbstraction_monthTot_output.nc',
-'nonIrrGrossDemand_monthTot_output.nc',
-'nonIrrReturnFlow_monthTot_output.nc',
-'nonIrrWaterConsumption_monthTot_output.nc',
-'runoff_monthTot_output.nc',
-'satDegLow_monthAvg_output.nc',
-'satDegUpp_monthAvg_output.nc',
-'snowCoverSWE_monthAvg_output.nc',
-'snowFreeWater_monthAvg_output.nc',
-'storGroundwaterFossil_monthAvg_output.nc',
-'storGroundwaterFossil_monthEnd_output.nc',
-'storGroundwaterTotal_monthAvg_output.nc',
-'storGroundwaterTotal_monthEnd_output.nc',
-'storGroundwater_monthAvg_output.nc',
-'storGroundwater_monthEnd_output.nc',
-'storLowTotal_monthAvg_output.nc',
-'storUppTotal_monthAvg_output.nc',
-'surfaceWaterAbstraction_monthTot_output.nc',
-'temperature_monthAvg_output.nc',
-'topWaterLayer_monthAvg_output.nc',
-'totalActiveStorageThickness_monthAvg_output.nc',
-'totalActiveStorageThickness_monthEnd_output.nc',
-'totalEvaporation_monthAvg_output.nc',
-'totalEvaporation_monthTot_output.nc',
-'totalGrossDemand_monthTot_output.nc',
-'totalGroundwaterAbstraction_monthAvg_output.nc',
-'totalGroundwaterAbstraction_monthTot_output.nc',
-'totalRunoff_monthAvg_output.nc',
-'totalRunoff_monthTot_output.nc',
-'totalWaterStorageThickness_monthAvg_output.nc',
-'totalWaterStorageThickness_monthEnd_output.nc'
-]
+# the monthly files
+if list_type == "selected":\
+	netcdfList = [str(sys.argv[7])]
 
-additionalList = \
-[
-'storGroundwater_monthAvg_output.nc',
-'baseflow_monthTot_output.nc',
-'satDegUpp_monthAvg_output.nc',
-'storUppTotal_monthAvg_output.nc',
-'discharge_annuaAvg_output.nc',
-'baseflow_annuaTot_output.nc'
-]
+# the monthly files
+if list_type == "selected_monthly":\
+	netcdfList = [
+		'totalGroundwaterAbstraction_monthTot_output.nc',
+		'gwRecharge_monthTot_output.nc',
+		]
 
-netcdfList = modflowListNonNatural
-netcdfList = ['totalRunoff_monthTot_output.nc','totalRunoff_annuaTot_output.nc']
-
-netcdfList = list27April2015
-
-netcdfList = additionalList
-
-netcdfList = ['totalWaterStorageThickness_monthAvg_output.nc', 'discharge_monthAvg_output.nc', 'storGroundwater_monthAvg_output.nc']
-
-netcdfList = ['actBareSoilEvap_monthTot_output.nc', 'discharge_monthAvg_output.nc']
+# the monthly files
+if list_type == "selected_monthly_runoff_components":\
+	netcdfList = [
+        'baseflow_monthTot_output.nc',
+        'directRunoff_monthTot_output.nc',
+        'interflowTotal_monthTot_output.nc'
+		]
 
 for i in netcdfList:print i
 
