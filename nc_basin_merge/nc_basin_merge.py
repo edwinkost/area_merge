@@ -452,6 +452,23 @@ if list_type == "selected_monthly_runoff_components":\
         'interflowTotal_monthTot_output.nc'
 		]
 
+# the annual files for WRI
+if list_type == "annual_files_for_WRI":\
+	netcdfList = [
+		'domesticWaterConsumptionVolume_annuaTot_output.nc',
+		'domesticWaterWithdrawalVolume_annuaTot_output.nc',
+		'evaporation_from_irrigation_volume_annuaTot_output.nc',
+		'industryWaterConsumptionVolume_annuaTot_output.nc',
+		'industryWaterWithdrawalVolume_annuaTot_output.nc',
+		'irrigationWaterWithdrawalVolume_annuaTot_output.nc',
+		'livestockWaterConsumptionVolume_annuaTot_output.nc',
+		'livestockWaterWithdrawalVolume_annuaTot_output.nc',
+		'netLqWaterToSoil_at_irrigation_volume_annuaTot_output.nc',
+		'precipitation_at_irrigation_volume_annuaTot_output.nc'
+		'transpiration_from_irrigation_volume_annuaTot_output.nc'
+		]
+
+
 for i in netcdfList:print i
 
 ncores = min(len(netcdfList), max_number_of_cores)
