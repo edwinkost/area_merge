@@ -464,7 +464,7 @@ if list_type == "annual_files_for_WRI":\
 		'livestockWaterConsumptionVolume_annuaTot_output.nc',
 		'livestockWaterWithdrawalVolume_annuaTot_output.nc',
 		'netLqWaterToSoil_at_irrigation_volume_annuaTot_output.nc',
-		'precipitation_at_irrigation_volume_annuaTot_output.nc'
+		'precipitation_at_irrigation_volume_annuaTot_output.nc',
 		'transpiration_from_irrigation_volume_annuaTot_output.nc'
 		]
 
