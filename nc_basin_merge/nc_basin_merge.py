@@ -468,6 +468,45 @@ if list_type == "annual_files_for_WRI":\
 		'transpiration_from_irrigation_volume_annuaTot_output.nc'
 		]
 
+# selected files
+if list_type == "selected_files_for_WRI":\
+	netcdfList = [
+
+        'irrGrossDemand_annuaTot_output.nc',
+        'nonIrrGrossDemand_annuaTot_output.nc',
+        'totalRunoff_annuaTot_output.nc',
+        'totalEvaporation_annuaTot_output.nc',
+        'discharge_annuaAvg_output.nc'
+		'totalGroundwaterAbstraction_annuaTot_output.nc',
+		'gwRecharge_annuaTot_output.nc',
+		'domesticWaterConsumptionVolume_annuaTot_output.nc',
+		'domesticWaterWithdrawalVolume_annuaTot_output.nc',
+		'evaporation_from_irrigation_volume_annuaTot_output.nc',
+		'industryWaterConsumptionVolume_annuaTot_output.nc',
+		'industryWaterWithdrawalVolume_annuaTot_output.nc',
+		'irrigationWaterWithdrawalVolume_annuaTot_output.nc',
+		'livestockWaterConsumptionVolume_annuaTot_output.nc',
+		'livestockWaterWithdrawalVolume_annuaTot_output.nc',
+		'netLqWaterToSoil_at_irrigation_volume_annuaTot_output.nc',
+		'precipitation_at_irrigation_volume_annuaTot_output.nc',
+		'transpiration_from_irrigation_volume_annuaTot_output.nc',
+
+        'discharge_monthAvg_output.nc',
+		'totalGroundwaterAbstraction_monthTot_output.nc',
+		'gwRecharge_monthTot_output.nc',
+		'domesticWaterConsumptionVolume_monthTot_output.nc',
+		'domesticWaterWithdrawalVolume_monthTot_output.nc',
+		'evaporation_from_irrigation_volume_monthTot_output.nc',
+		'industryWaterConsumptionVolume_monthTot_output.nc',
+		'industryWaterWithdrawalVolume_monthTot_output.nc',
+		'irrigationWaterWithdrawalVolume_monthTot_output.nc',
+		'livestockWaterConsumptionVolume_monthTot_output.nc',
+		'livestockWaterWithdrawalVolume_monthTot_output.nc',
+		'netLqWaterToSoil_at_irrigation_volume_monthTot_output.nc',
+		'precipitation_at_irrigation_volume_monthTot_output.nc',
+		'transpiration_from_irrigation_volume_monthTot_output.nc',
+
+		]
 
 for i in netcdfList:print i
 
