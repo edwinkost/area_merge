@@ -476,7 +476,7 @@ if list_type == "selected_files_for_WRI":\
         'nonIrrGrossDemand_annuaTot_output.nc',
         'totalRunoff_annuaTot_output.nc',
         'totalEvaporation_annuaTot_output.nc',
-        'discharge_annuaAvg_output.nc'
+        'discharge_annuaAvg_output.nc',
 		'totalGroundwaterAbstraction_annuaTot_output.nc',
 		'gwRecharge_annuaTot_output.nc',
 		'domesticWaterConsumptionVolume_annuaTot_output.nc',
