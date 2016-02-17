@@ -29,7 +29,7 @@ input_folder = [
 '/projects/0/wtrcycle/users/edwin/edwin/05min_runs_november_2015/pcrglobwb_modflow_from_1901/continue_from_1969/',
 '/projects/0/wtrcycle/users/edwin/edwin/05min_runs_november_2015/pcrglobwb_modflow_from_1901/continue_from_1989/'
 ]
-input_folder = str(sys.argv[5])
+#~ input_folder = str(sys.argv[5])
 
 # maximum number of cores used per command lines
 num_of_cores = 4
