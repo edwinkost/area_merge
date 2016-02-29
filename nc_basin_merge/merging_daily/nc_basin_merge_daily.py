@@ -234,7 +234,8 @@ def mergeNetCDF(inputTuple):
 	longitudes = np.around(longitudes, decimals=4) # TODO: Improve this. We need this one for selecting rows and columns. 
     
 	# - create time and set its attributes
-	date_time=rootgrp.createDimension('time',len(uniqueTimes))
+	#~ date_time=rootgrp.createDimension('time',len(uniqueTimes))
+	date_time=rootgrp.createDimension('time', None)
 	date_time= rootgrp.createVariable('time','f8',('time',))
 	for attr,value in calendar.iteritems():
 		setattr(date_time,attr,str(value))
