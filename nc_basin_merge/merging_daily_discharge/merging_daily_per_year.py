@@ -43,4 +43,4 @@ for year in years:
     i_year = i_year + 1
     if (i_year % num_of_cores == 0 or i_year == len(years)): cmd += 'wait'
 print cmd
-#~ os.system(cmd)
+os.system(cmd)
