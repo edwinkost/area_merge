@@ -17,15 +17,15 @@ for i in range(0, len(netcdf_file_name_splitted) - 1, 1):
     if (i < (len(netcdf_file_name_splitted) - 2)): netcdf_file_name_without_extension += "."
 
 # interval for years:
-start_year   = as.integer(sys.argv[3])
-end_year     = as.integer(sys.argv[4])
+start_year   = int(sys.argv[3])
+end_year     = int(sys.argv[4])
 years = range(start_year, end_year + 1)
 
 # output folder
 output_folder = sys.argv[4]
 
 # maximum number of cores used per command lines
-num_of_cores = as.integer(sys.argv[5])
+num_of_cores = int(sys.argv[5])
 
 # preparing output folder
 cmd = 'mkdir '+str(output_folder)
