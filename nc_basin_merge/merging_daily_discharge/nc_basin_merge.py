@@ -532,13 +532,13 @@ for i in netcdfList:print i
 
 ncores = min(len(netcdfList), max_number_of_cores)
 
-#~ # testing for a single job
-#~ mergeNetCDF((netcdfList[0], latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate))
+# testing for a single job
+mergeNetCDF((netcdfList[0], latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate))
 
-ll = []
-for ncName in netcdfList:
-	ll.append((ncName, latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate))
-
-pool = Pool(processes=ncores)    # start "ncores" of worker processes
-pool.map(mergeNetCDF, ll)        # multicore processing
+#~ ll = []
+#~ for ncName in netcdfList:
+	#~ ll.append((ncName, latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate))
+#~ 
+#~ pool = Pool(processes=ncores)    # start "ncores" of worker processes
+#~ pool.map(mergeNetCDF, ll)        # multicore processing
 
