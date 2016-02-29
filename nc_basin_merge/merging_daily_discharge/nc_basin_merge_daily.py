@@ -14,7 +14,6 @@ from dateutil.relativedelta import *
 # file cache to minimize/reduce opening/closing files.  
 filecache = dict()
 
-
 def calculate_monthdelta(date1, date2):
     def is_last_day_of_the_month(date):
         days_in_month = calendar.monthrange(date.year, date.month)[1]
@@ -140,7 +139,7 @@ def mergeNetCDF(inputTuple):
 			number_of_years = endTime.year - startTime.year + 1
 			datetime_range = [startTime + relativedelta(years =+x) for x in range(0, number_of_years)]
 		
-		# time variables that will be used 
+		# time variables that will be used (using numerical values)
 		uniqueTimes = nc.date2num(datetime_range, time_units, time_calendar)
 	
 	for ncFile in netCDFInput.values():
@@ -155,7 +154,7 @@ def mergeNetCDF(inputTuple):
 			print "New: ", ncFile
 
 		# and get index
-		index= netCDFInput.keys()[netCDFInput.values().index(ncFile)]
+		index = netCDFInput.keys()[netCDFInput.values().index(ncFile)]
 
 		# retrieve dimensions,  atributes, variables, and missing value
 		dimensions[index]= rootgrp.dimensions.copy()
@@ -231,16 +230,17 @@ def mergeNetCDF(inputTuple):
 	lat[:]= latitudes
 	lon[:]= longitudes  
 
-	latitudes = np.around(latitudes, decimals=4)   # TODO: I don't think that we need this one. 
-	longitudes = np.around(longitudes, decimals=4) # TODO: I don't think that we need this one. 
+	latitudes = np.around(latitudes, decimals=4)   # TODO: Improve this. We need this one for selecting rows and columns.
+	longitudes = np.around(longitudes, decimals=4) # TODO: Improve this. We need this one for selecting rows and columns. 
     
-	#-create time and set its attributes
+	# - create time and set its attributes
 	date_time=rootgrp.createDimension('time',len(uniqueTimes))
 	date_time= rootgrp.createVariable('time','f8',('time',))
 	for attr,value in calendar.iteritems():
 		setattr(date_time,attr,str(value))
 	date_time[:]= uniqueTimes
-	#-setting variable
+
+	# - setting variable
 	if len(calendar) == 0:
 		varStructure= ('latitude','longitude')  
 	else:
@@ -248,7 +248,7 @@ def mergeNetCDF(inputTuple):
 
 	variable = rootgrp.createVariable(variableName, 'f4', varStructure, fill_value = MV, zlib = using_zlib)
 
-	#-set variable attributes and overall values
+	# - set variable attributes and overall values
 	for index in attributes.keys():
 		for name in variables[index][variableName].ncattrs():
 			try:
@@ -402,19 +402,19 @@ except:
 
 # the annual files (default)
 netcdfList = [
-'snowCoverSWE_annuaAvg_output.nc',
-'snowFreeWater_annuaAvg_output.nc',
-'interceptStor_annuaAvg_output.nc',
-'topWaterLayer_annuaAvg_output.nc',
-'storUppTotal_annuaAvg_output.nc',
-'storLowTotal_annuaAvg_output.nc',
-'storGroundwater_annuaAvg_output.nc',
-'surfaceWaterStorage_annuaAvg_output.nc',
-'irrGrossDemand_annuaTot_output.nc',
-'nonIrrGrossDemand_annuaTot_output.nc',
-'totalRunoff_annuaTot_output.nc',
-'totalEvaporation_annuaTot_output.nc',
-'discharge_annuaAvg_output.nc'
+	'snowCoverSWE_annuaAvg_output.nc',
+	'snowFreeWater_annuaAvg_output.nc',
+	'interceptStor_annuaAvg_output.nc',
+	'topWaterLayer_annuaAvg_output.nc',
+	'storUppTotal_annuaAvg_output.nc',
+	'storLowTotal_annuaAvg_output.nc',
+	'storGroundwater_annuaAvg_output.nc',
+	'surfaceWaterStorage_annuaAvg_output.nc',
+	'irrGrossDemand_annuaTot_output.nc',
+	'nonIrrGrossDemand_annuaTot_output.nc',
+	'totalRunoff_annuaTot_output.nc',
+	'totalEvaporation_annuaTot_output.nc',
+	'discharge_annuaAvg_output.nc'
 ]
 
 # the monthly files
@@ -534,7 +534,7 @@ for i in netcdfList:print i
 
 ncores = min(len(netcdfList), max_number_of_cores)
 
-# testing for a single job
+# we use only a single core
 mergeNetCDF((netcdfList[0], latMin, latMax, lonMin, lonMax, deltaLat, deltaLon, startDate, endDate))
 
 #~ ll = []
