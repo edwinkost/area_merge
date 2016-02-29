@@ -42,8 +42,9 @@ for year in years:
                                                str(output_folder) + "/" + netcdf_file_name_without_extension + "_" +  str(year) + ".nc" + " " + \
                                                "1" + " " + \
                                                str(year) + "-01-01 " + str(year) + "-12-31 " + \
-                                               "selected "+ str(netcdf_file_name)+ " & "
+                                               "selected "+ str(netcdf_file_name)
+    cmd += " & "
     i_year = i_year + 1
-    if (i_year % num_of_cores == 0 or i_year == len(years)): cmd += 'wait '
+    if (i_year % num_of_cores == 0 or i_year == len(years)): cmd += ' wait '
 print cmd
 os.system(cmd)
