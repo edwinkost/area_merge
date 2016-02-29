@@ -28,8 +28,11 @@ output_folder = sys.argv[5]
 num_of_cores = int(sys.argv[6])
 
 # preparing output folder
-cmd = 'mkdir '+str(output_folder)
-os.system(cmd)
+try:
+    os.makedirs(output_folder)
+except:
+    cmd = 'mkdir '+str(output_folder)
+    os.system(cmd)
 
 # merging daily resolution over areas
 cmd = ''; print cmd
@@ -43,4 +46,4 @@ for year in years:
     i_year = i_year + 1
     if (i_year % num_of_cores == 0 or i_year == len(years)): cmd += 'wait '
 print cmd
-#~ os.system(cmd)
+os.system(cmd)
