@@ -77,8 +77,13 @@ def mergeNetCDF(inputTuple):
 	
 	#-dictionary holding netCDFInput
 	netCDFInput = ncFileNameDict(inputDirRoot, areas, ncName)
+	
 	#-netDCF output
-	netCDFOutput= os.path.join(outputDir,ncName)
+	if outputFile == None:
+		netCDFOutput = os.path.join(outputDir,ncName)
+	else:
+		netCDFOutput = outputFile
+	
 	#~ ncFormat = 'NETCDF3_CLASSIC'
 	ncFormat = 'NETCDF4'
 	
@@ -345,6 +350,12 @@ try:
 	if sys.argv[2] == "default": outputDir = inputDirRoot+"/global/netcdf/"
 except:
 	outputDir = inputDirRoot+"/global/netcdf/"
+
+outputFile = None
+# output file (optional)
+if sys.argv[2].endswith('.nc4', '.nc'):
+	outputFile = sys.argv[2]
+	outputDir  = os.path.dirname(outputFile)
 
 # maximum number of cores that will be used
 try:
