@@ -24,9 +24,6 @@ years = range(start_year, end_year + 1)
 # output folder
 output_folder = sys.argv[5]
 
-# maximum number of cores used per command lines
-num_of_cores = int(sys.argv[6])
-
 # preparing output folder
 try:
     os.makedirs(output_folder)
@@ -44,7 +41,6 @@ for year in years:
                                                str(year) + "-01-01 " + str(year) + "-12-31 " + \
                                                "selected "+ str(netcdf_file_name)
     cmd += " & "
-    i_year = i_year + 1
-    if (i_year % num_of_cores == 0 or i_year == len(years)): cmd += ' wait '
+cmd = cmd + "wait"       
 print cmd
 os.system(cmd)
