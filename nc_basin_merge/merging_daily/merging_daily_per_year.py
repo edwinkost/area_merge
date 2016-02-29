@@ -44,3 +44,6 @@ for year in years:
 cmd = cmd + "wait"       
 print cmd
 os.system(cmd)
+
+# example: python merging_daily_per_year.py /projects/0/wtrcycle/users/edwinhs/05min_runs_january_2016/pcrglobwb_only_from_1958_4LCs_edwin_parameter_set discharge_dailyTot_output.nc 1958 2010 /scratch-shared/edwin/tmp/test/
+
