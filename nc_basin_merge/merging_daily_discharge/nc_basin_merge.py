@@ -361,11 +361,6 @@ if os.path.basename(sys.argv[2]).endswith(('.nc4','.nc')):
 	outputFile = sys.argv[2]
 	outputDir  = os.path.dirname(outputFile)
 
-print outputDir
-
-stop
-
-
 # maximum number of cores that will be used
 try:
 	max_number_of_cores = int(sys.argv[3])
