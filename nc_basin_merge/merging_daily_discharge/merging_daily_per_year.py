@@ -33,12 +33,14 @@ os.system(cmd)
 
 # merging daily resolution over areas
 cmd = ''; print cmd
+i_year = 0
 for year in years:
     cmd += 'python nc_basin_merge_daily.py ' + str(input_folder) + " " + \
                                                str(output_folder) + "/" + netcdf_file_name_without_extension + "_" +  str(year) + ".nc" + " " + \
                                                "1" + " " + \
                                                str(year) + "-01-01 " + str(year) + "-12-31 " + \
                                                "selected "+ str(netcdf_file_name)
-    if ((i_year + 1) % num_of_cores == 0): cmd += 'wait'
+    i_year = i_year + 1
+    if (i_year % num_of_cores == 0): cmd += 'wait'
 print cmd
 #~ os.system(cmd)
