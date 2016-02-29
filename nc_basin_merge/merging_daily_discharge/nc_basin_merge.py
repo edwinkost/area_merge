@@ -224,8 +224,8 @@ def mergeNetCDF(inputTuple):
 	lat[:]= latitudes
 	lon[:]= longitudes  
 
-	#~ latitudes = np.around(latitudes, decimals=4)   # I don't think that we need this one. 
-	#~ longitudes = np.around(longitudes, decimals=4) # I don't think that we need this one. 
+	latitudes = np.around(latitudes, decimals=100)   # I don't think that we need this one. 
+	longitudes = np.around(longitudes, decimals=100) # I don't think that we need this one. 
     
 	#-create time and set its attributes
 	date_time=rootgrp.createDimension('time',len(uniqueTimes))
