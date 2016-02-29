@@ -351,6 +351,8 @@ try:
 except:
 	outputDir = inputDirRoot+"/global/netcdf/"
 
+print sys.argv[2]
+
 outputFile = None
 # output file (optional)
 if str(sys.argv[2]).endswith('.nc4','.nc'):
