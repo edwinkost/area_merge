@@ -22,10 +22,10 @@ end_year     = int(sys.argv[4])
 years = range(start_year, end_year + 1)
 
 # output folder
-output_folder = sys.argv[4]
+output_folder = sys.argv[5]
 
 # maximum number of cores used per command lines
-num_of_cores = int(sys.argv[5])
+num_of_cores = int(sys.argv[6])
 
 # preparing output folder
 cmd = 'mkdir '+str(output_folder)
