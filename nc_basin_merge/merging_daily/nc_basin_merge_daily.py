@@ -266,11 +266,16 @@ def mergeNetCDF(inputTuple):
 	#-iterate over time steps and retrieve values
 	
 	print 'nr of time steps = %s, nr of files = %s ' % (len(uniqueTimes), len(netCDFInput))
+	i_time = 0
 	for time in uniqueTimes[:]:
 
+		
 		#~ print 'processing %s for time index %.0d' %(ncName, 1+ time - min(uniqueTimes))
-		print 'processing %s for time %.0d' %(ncName, time)
+		#~ print 'processing %s for time %.0d' %(ncName, time)
 
+		i_time = i_time + 1
+		print 'processing %s %i from %i' %(ncName, i_time, len(uniqueTimes))
+		
 		#-create empty field to fill
 		variableArray= np.ones((len(latitudes),len(longitudes)))*MV
 		
