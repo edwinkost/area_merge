@@ -84,6 +84,8 @@ def mergeNetCDF(inputTuple):
 	else:
 		netCDFOutput = outputFile
 	
+	print netCDFOutput
+	
 	#~ ncFormat = 'NETCDF3_CLASSIC'
 	ncFormat = 'NETCDF4'
 	
