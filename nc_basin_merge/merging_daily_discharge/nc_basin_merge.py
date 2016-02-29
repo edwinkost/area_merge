@@ -353,7 +353,7 @@ except:
 
 outputFile = None
 # output file (optional)
-if sys.argv[2].endswith('.nc4', '.nc'):
+if str(sys.argv[2]).endswith('.nc4','.nc'):
 	outputFile = sys.argv[2]
 	outputDir  = os.path.dirname(outputFile)
 
