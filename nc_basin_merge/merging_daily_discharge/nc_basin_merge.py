@@ -224,8 +224,8 @@ def mergeNetCDF(inputTuple):
 	lat[:]= latitudes
 	lon[:]= longitudes  
 
-	latitudes = np.around(latitudes, decimals=100)   # I don't think that we need this one. 
-	longitudes = np.around(longitudes, decimals=100) # I don't think that we need this one. 
+	latitudes = np.around(latitudes, decimals=4)   # TODO: I don't think that we need this one. 
+	longitudes = np.around(longitudes, decimals=4) # TODO: I don't think that we need this one. 
     
 	#-create time and set its attributes
 	date_time=rootgrp.createDimension('time',len(uniqueTimes))
@@ -293,11 +293,11 @@ def mergeNetCDF(inputTuple):
 			try:
 				
 				# find the correct index (old method)
-				#~ posCnt= variables[index]['time'][:].tolist().index(time)
+				posCnt= variables[index]['time'][:].tolist().index(time)
 				
-				# find the correct index (new method)
-				date_value = nc.num2date(time, rootgrp.variables['time'].units, rootgrp.variables['time'].calendar)
-				posCnt = nc.date2index(date_value, rootgrp.variables['time'])
+				#~ # find the correct index (new method)
+				#~ date_value = nc.num2date(time, rootgrp.variables['time'].units, rootgrp.variables['time'].calendar)
+				#~ posCnt = nc.date2index(date_value, rootgrp.variables['time'])
 				
 				sampleArray= rootgrp.variables[variableName][posCnt,:,:]
 				sampleArray[sampleArray == variables[index][variableName]._FillValue]= MV
