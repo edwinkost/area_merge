@@ -89,7 +89,8 @@ def mergeNetCDF(inputTuple):
 	ncFormat = 'NETCDF4'
 	
 	# option to use zlib compression:
-	using_zlib = True
+	#~ using_zlib = True
+	using_zlib = False               # I decide not to compress (so that we can I analyze it quickly). 
 
 	#-set dimensions, attributes, and dimensions per netCDF input data set
 	# and retrieve the resolution and definition of coordinates and calendar
