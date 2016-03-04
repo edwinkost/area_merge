@@ -39,9 +39,9 @@ cmd = ''; print cmd
 i_year = 0
 for year in years:
 
-    if netcdf_resolution == "daily":   string_dates: str(year) + "-01-01 " + str(year) + "-12-31 "
-    if netcdf_resolution == "monthly": string_dates: str(year) + "-01-31 " + str(year) + "-12-31 "
-    if netcdf_resolution == "annual":  string_dates: str(year) + "-12-31 " + str(year) + "-12-31 " # TODO: I'm not sure if this one works. 
+    if netcdf_resolution == "daily":   string_dates = str(year) + "-01-01 " + str(year) + "-12-31 "
+    if netcdf_resolution == "monthly": string_dates = str(year) + "-01-31 " + str(year) + "-12-31 "
+    if netcdf_resolution == "annual":  string_dates = str(year) + "-12-31 " + str(year) + "-12-31 " # TODO: I'm not sure if this one works. 
 
     cmd += 'python nc_basin_merge_daily_monthly.py ' + str(input_folder) + " " + \
                                                        str(output_folder) + "/" + netcdf_file_name_without_extension + "_" +  str(year) + ".nc" + " " + \
