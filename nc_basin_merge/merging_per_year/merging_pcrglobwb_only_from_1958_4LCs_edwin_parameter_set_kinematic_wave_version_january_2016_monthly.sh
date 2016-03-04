@@ -1,4 +1,5 @@
 
+# discharge
 
 python merging_per_year.py /projects/0/wtrcycle/users/edwin/05min_runs_january_2016/pcrglobwb_only_from_1958_4LCs_edwin_parameter_set_kinematic_wave/continue_from_1958 discharge_monthAvg_output.nc monthly 1958 1970 /scratch-shared/edwin/05min_runs_january_2016_merged/pcrglobwb_only_from_1958_4LCs_edwin_parameter_set_kinematic_wave/monthly/ &
 python merging_per_year.py /projects/0/wtrcycle/users/edwin/05min_runs_january_2016/pcrglobwb_only_from_1958_4LCs_edwin_parameter_set_kinematic_wave/continue_from_1971 discharge_monthAvg_output.nc monthly 1971 1982 /scratch-shared/edwin/05min_runs_january_2016_merged/pcrglobwb_only_from_1958_4LCs_edwin_parameter_set_kinematic_wave/monthly/ &
@@ -6,4 +7,5 @@ python merging_per_year.py /projects/0/wtrcycle/users/edwin/05min_runs_january_2
 python merging_per_year.py /projects/0/wtrcycle/users/edwin/05min_runs_january_2016/pcrglobwb_only_from_1958_4LCs_edwin_parameter_set_kinematic_wave/continue_from_1996 discharge_monthAvg_output.nc monthly 1996 2010 /scratch-shared/edwin/05min_runs_january_2016_merged/pcrglobwb_only_from_1958_4LCs_edwin_parameter_set_kinematic_wave/monthly/ &
 
 wait
+
 
