@@ -433,9 +433,13 @@ if list_type == "monthly_16":\
 		'waterBodyActEvaporation_monthTot_output.nc'
 		]
 
-# the monthly files
+# one selected file
 if list_type == "selected":\
 	netcdfList = [str(sys.argv[7])]
+
+# one selected files from a list
+if list_type == "selected_list":\
+	netcdfList = list(set(str(sys.argv[7]).split(",")))
 
 # the monthly files
 if list_type == "selected_monthly":\
