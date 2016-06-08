@@ -438,8 +438,10 @@ if list_type == "selected":\
 	netcdfList = [str(sys.argv[7])]
 
 # one selected files from a list
-if list_type == "selected_list":\
+if list_type == "selected_list":
 	netcdfList = list(set(str(sys.argv[7]).split(",")))
+	print netcdfList
+	print netcdfList[0]
 
 # the monthly files
 if list_type == "selected_monthly":\
@@ -475,7 +477,6 @@ if list_type == "annual_files_for_WRI":\
 # selected files
 if list_type == "selected_files_for_WRI":\
 	netcdfList = [
-
         'irrGrossDemand_annuaTot_output.nc',
         'nonIrrGrossDemand_annuaTot_output.nc',
         'totalRunoff_annuaTot_output.nc',
@@ -494,7 +495,6 @@ if list_type == "selected_files_for_WRI":\
 		'netLqWaterToSoil_at_irrigation_volume_annuaTot_output.nc',
 		'precipitation_at_irrigation_volume_annuaTot_output.nc',
 		'transpiration_from_irrigation_volume_annuaTot_output.nc',
-
         'discharge_monthAvg_output.nc',
 		'totalGroundwaterAbstraction_monthTot_output.nc',
 		'gwRecharge_monthTot_output.nc',
@@ -509,7 +509,6 @@ if list_type == "selected_files_for_WRI":\
 		'netLqWaterToSoil_at_irrigation_volume_monthTot_output.nc',
 		'precipitation_at_irrigation_volume_monthTot_output.nc',
 		'transpiration_from_irrigation_volume_monthTot_output.nc',
-
 		]
 
 for i in netcdfList:print i
